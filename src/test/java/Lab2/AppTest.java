@@ -62,4 +62,21 @@ public class AppTest
         assertEquals(fileRepository1.findOne("11").getNume(), "Andrei");
 
     }
+
+    @Test
+    public void testAddTemaToRepository(){
+
+        assertTrue(service.saveTema("11", "Tema1", 2, 1) == 0);
+        assertEquals(fileRepository2.findOne("11").getDescriere(), "Tema1");
+
+    }
+
+    @Test
+    public void testAddTemaDuplicateId() {
+
+        assertTrue(service.saveTema("11", "Tema1", 2, 1) == 0);
+        assertFalse(service.saveTema("11", "Tema2", 4, 2) == 0);
+    }
+
+
 }
