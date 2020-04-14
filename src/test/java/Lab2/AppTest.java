@@ -129,7 +129,7 @@ public class AppTest
 
     @Test
     public void testAddTemaToRepository(){
-        assertTrue(service.saveTema("11", "Tema1", 2, 1) == 0);
+        assertTrue(service.saveTema("11", "Tema1", 2, 1) == 1);
     }
 
     @Test
