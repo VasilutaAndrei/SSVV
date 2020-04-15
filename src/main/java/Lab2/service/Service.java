@@ -75,6 +75,15 @@ public class Service {
         return 1;
     }
 
+    public int deleteNota(String idStudent, String idTema) {
+        Nota result = notaXmlRepo.delete(new Pair<String, String>(idStudent, idTema));
+
+        if (result == null) {
+            return 0;
+        }
+        return 1;
+    }
+    
     public int deleteTema(String id) {
         Tema result = temaXmlRepo.delete(id);
 
