@@ -8,19 +8,19 @@ import Lab2.repository.NotaXMLRepository;
 import Lab2.repository.StudentXMLRepository;
 import Lab2.repository.TemaXMLRepository;
 import Lab2.service.Service;
-import Lab2.validation.*;
+import Lab2.validation.NotaValidator;
+import Lab2.validation.StudentValidator;
+import Lab2.validation.TemaValidator;
+import Lab2.validation.Validator;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.
  */
-public class BigBang {
+public class IncrementalIntegration {
     /**
      * Rigorous Test :-)
      */
@@ -52,24 +52,23 @@ public class BigBang {
 
     }
 
-
     @Test
-    public void testAddTemaToRepository() {
+    public void testAddAssignmentToRepository() {
+        service.deleteStudent("13");
+        assertNull(fileRepository1.findOne("13"));
+        service.deleteTema("11");
+        assertNull(fileRepository1.findOne("11"));
 
-        assertTrue(service.saveTema("11", "Tema1", 2, 1) == 0);
+        assertTrue(service.saveStudent("13", "Andrei", 937) == 1);
+        assertEquals(fileRepository1.findOne("13").getNume(), "Andrei");
+        assertTrue(service.saveTema("11", "Tema1", 2, 1) == 1);
         assertEquals(fileRepository2.findOne("11").getDescriere(), "Tema1");
+
     }
 
-    @Test
-    public void testAddGradeToRepository() {
-        service.deleteNota("13", "11");
-        assertNull(fileRepository3.findOne(new Pair<String, String>("13", "11")));
-        assertTrue(service.saveNota("13", "11", 9.0, 2, "Excelent") == 1);
-        assertTrue(fileRepository3.findOne(new Pair<String, String>("13", "11")).getNota() == 9.0);
-    }
 
     @Test
-    public void testAddAll() {
+    public void testAddGrade() {
         service.deleteStudent("13");
         assertNull(fileRepository1.findOne("13"));
         service.deleteTema("11");
